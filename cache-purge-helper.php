@@ -29,20 +29,38 @@
 
 function cache_purge_helper() {
   // Purge WordPress Cache
+  $called_action_hook = current_filter();
+  write_log('cph - initiated');
+  write_log('cph - running on'. $called_action_hook );
+  write_log('cph - flusing WordPress Cache first');
   wp_cache_flush();
   
   // If nginx-helper plugins is enabled, purge cache.
-  if ( is_plugin_active("nginx-helper") )
-  {
+  write_log('cph - checking for nginx-helper plugin');
+  if ( is_plugin_active("nginx-helper") ) {
+    write_log('cph - nginx-helper plugin installed, $nginx_purger->purge_all();');
     $nginx_purger->purge_all();
   }
-  
+ 
   // If litespeed-cache plugins is enabled, purge cache.
+  write_log('cph - checking for litespeed-cache plugin');
   if ( is_plugin_active("litespeed-cache") ) {
+    write_log('cph - litespeed-cache plugin installed, running do_action(\'litespeed_purge_all\');');
     do_action( 'litespeed_purge_all' );
   }
-
+  write_log('cph - end of cache_purge_helper function');
 }
+
+/* Log to WordPress Debug Log */
+if ( ! function_exists('write_log')) {
+  function write_log ( $log )  {
+    if ( is_array( $log ) || is_object( $log ) ) {
+      error_log( print_r( $log, true ) );
+    } else {
+      error_log( $log );
+    }
+  }
+} 
 
 // Plugin Update Hooks
 add_action( 'upgrader_process_complete', 'cache_purge_helper', 10, 0 ); // After plugins have been updated
