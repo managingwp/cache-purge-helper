@@ -82,11 +82,11 @@ if ( defined( 'FL_BUILDER_VERSION' ) ) {
 }
 
 // Elementor
-if ( defined( 'ELEMENTOR_VERSION' ) ) {
+//if ( defined( 'ELEMENTOR_VERSION' ) ) {
   add_action( 'elementor/core/files/clear_cache', 'cache_purge_helper', 10, 3 ); 
   add_action( 'update_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
   add_action( 'delete_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
-}
+//}
 
 // AutoOptimizer
 if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
