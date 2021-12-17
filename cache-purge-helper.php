@@ -37,7 +37,7 @@ function cache_purge_helper() {
   
   // If nginx-helper plugins is enabled, purge cache.
   write_log('cph - checking for nginx-helper plugin');
-  if ( is_plugin_active("nginx-helper") ) {
+  if ( is_plugin_active('nginx-helper/nginx-helper.php') ) {
     write_log('cph - nginx-helper plugin installed, running $nginx_purger->purge_all();');
     $nginx_purger->purge_all();
   } else {
@@ -46,7 +46,7 @@ function cache_purge_helper() {
  
   // If litespeed-cache plugins is enabled, purge cache.
   write_log('cph - checking for litespeed-cache plugin');
-  if ( is_plugin_active("litespeed-cache") ) {
+  if ( is_plugin_active('litespeed-cache/litespeed-cache.php') ) {
     write_log('cph - litespeed-cache plugin installed, running do_action(\'litespeed_purge_all\');');
     do_action( 'litespeed_purge_all' );
   }  else {
