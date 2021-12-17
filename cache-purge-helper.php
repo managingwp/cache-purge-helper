@@ -39,6 +39,7 @@ function cache_purge_helper() {
   write_log('cph - checking for nginx-helper plugin');
   if ( is_plugin_active('nginx-helper/nginx-helper.php') ) {
     write_log('cph - nginx-helper plugin installed, running $nginx_purger->purge_all();');
+    global $nginx_purger;
     $nginx_purger->purge_all();
   } else {
     write_log('cph - nginx-helper plugin not installed or detected');
