@@ -4,7 +4,7 @@
  * Plugin Name:       Cache Purge Helper
  * Plugin URI:        https://wpinfo.net
  * Description:       Adding additional hooks to trigger nginx-helper or lscache plugin purges
- * Version:           0.1a
+ * Version:           0.1b
  * Author:            Paul Stoute, Jordan Trask, Jeff Cleverly
  * Author URI:        https://wpinfo.net
  * Text Domain:       cache-purge-helper
@@ -38,8 +38,10 @@ function cache_purge_helper() {
   // If nginx-helper plugins is enabled, purge cache.
   write_log('cph - checking for nginx-helper plugin');
   if ( is_plugin_active("nginx-helper") ) {
-    write_log('cph - nginx-helper plugin installed, $nginx_purger->purge_all();');
+    write_log('cph - nginx-helper plugin installed, running $nginx_purger->purge_all();');
     $nginx_purger->purge_all();
+  } else {
+    write_log('cph - nginx-helper plugin not installed or detected');
   }
  
   // If litespeed-cache plugins is enabled, purge cache.
@@ -47,6 +49,8 @@ function cache_purge_helper() {
   if ( is_plugin_active("litespeed-cache") ) {
     write_log('cph - litespeed-cache plugin installed, running do_action(\'litespeed_purge_all\');');
     do_action( 'litespeed_purge_all' );
+  }  else {
+    write_log('cph - litespeed-cache plugin not installed or detected');
   }
   write_log('cph - end of cache_purge_helper function');
 }
