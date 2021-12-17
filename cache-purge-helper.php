@@ -32,13 +32,13 @@ function cache_purge_helper() {
   wp_cache_flush();
   
   // If nginx-helper plugins is enabled, purge cache.
-  if(is_plugin_active("nginx-helper"))
+  if( is_plugin_active("nginx-helper") )
   {
     $nginx_purger->purge_all();
   }
   
   // If litespeed-cache plugins is enabled, purge cache.
-  if(is_plugin_active("litespeed-cache"))
+  if( is_plugin_active("litespeed-cache") )
     do_action( 'litespeed_purge_all' );
   }
 
