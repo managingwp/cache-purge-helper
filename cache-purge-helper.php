@@ -74,23 +74,30 @@ add_action( 'deactivated_plugin', 'cache_purge_helper', 10, 0); // After a plugi
 add_action( 'switch_theme', 'cache_purge_helper', 10, 0); // After a theme has been changed
 
 // Beaver Builder
-add_action( 'fl_builder_cache_cleared', 'cache_purge_helper', 10, 3 );
-add_action( 'fl_builder_after_save_layout', 'cache_purge_helper', 10, 3 );
-add_action( 'fl_builder_after_save_user_template', 'cache_purge_helper', 10, 3 );
-add_action( 'upgrader_process_complete', 'cache_purge_helper', 10, 3 );
+if ( defined( 'FL_BUILDER_VERSION' ) ) {
+    add_action( 'fl_builder_cache_cleared', 'cache_purge_helper', 10, 3 );
+    add_action( 'fl_builder_after_save_layout', 'cache_purge_helper', 10, 3 );
+    add_action( 'fl_builder_after_save_user_template', 'cache_purge_helper', 10, 3 );
+    add_action( 'upgrader_process_complete', 'cache_purge_helper', 10, 3 );
+}
 
 // Elementor
-add_action( 'elementor/core/files/clear_cache', 'cache_purge_helper', 10, 3 ); 
-add_action( 'update_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
-add_action( 'delete_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
-
+if ( defined( 'ELEMENTOR_VERSION' ) ) {
+    add_action( 'elementor/core/files/clear_cache', 'cache_purge_helper', 10, 3 ); 
+    add_action( 'update_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
+    add_action( 'delete_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
+}
 
 // AutoOptimizer
-add_action( 'autoptimize_action_cachepurged','cache_purge_helper', 10, 3 ); // Need to document this.
+if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
+    add_action( 'autoptimize_action_cachepurged','cache_purge_helper', 10, 3 ); // Need to document this.
+}
 
 // Oxygen
-add_action( 'wp_ajax_oxygen_vsb_cache_generated','cache_purge_helper', 99 );
-add_action( 'update_option__oxygen_vsb_universal_css_url','cache_purge_helper', 99 );
-add_action( 'update_option__oxygen_vsb_css_files_state','cache_purge_helper', 99 );
+if ( defined( 'CT_VERSION' ) ) {
+    add_action( 'wp_ajax_oxygen_vsb_cache_generated','cache_purge_helper', 99 );
+    add_action( 'update_option__oxygen_vsb_universal_css_url','cache_purge_helper', 99 );
+    add_action( 'update_option__oxygen_vsb_css_files_state','cache_purge_helper', 99 );
+}
 
            
