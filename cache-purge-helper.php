@@ -56,7 +56,10 @@ function cache_purge_helper() {
   write_log('cph - end of cache_purge_helper function');
 }
 
-/* Log to WordPress Debug Log */
+/* Log to WordPress Debug Log Function
+*
+* Log to PHP error_log if WP_DEBUG and CPH_DEBUG are set!
+*/
 if ( ! function_exists('write_log')) {
   function write_log ( $log )  {
    if ( WP_DEBUG === true && defined('CPH_DEBUG')) {
