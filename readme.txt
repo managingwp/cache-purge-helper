@@ -45,6 +45,24 @@ The following themes and plugins hooks are used.
 * update_option__oxygen_vsb_universal_css_url
 * update_option__oxygen_vsb_css_files_state
 
+## Installation
+
+Automatic Installation
+
+1. Log in to your WordPress admin panel, navigate to the Plugins menu and click Add New.
+2. In the search field type "Cache Purge Helper" and click Search Plugins. 
+3. From the search results, pick "Cache Purge Helper" and click Install Now. Wordpress will ask you to confirm to complete the installation.
+
+Manual Installation
+
+1. Extract the zip file.
+2. Upload them to `/wp-content/plugins/` directory on your WordPress installation.
+3. Then activate the Plugin from Plugins page.
+
+Enabling Debug Mode
+
+Simply add `define('CPH_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log
+
 ## Frequently Asked Questions
 
 ### Why did you create this plugin?
