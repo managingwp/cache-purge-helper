@@ -70,6 +70,7 @@ if ( ! function_exists('write_log')) {
 } 
 
 // Plugin Update Hooks
+write_log('cph - Loading WordPress core hooks');
 add_action( 'upgrader_process_complete', 'cache_purge_helper', 10, 0 ); // After plugins have been updated
 add_action( 'activated_plugin', 'cache_purge_helper', 10, 0); // After a plugin has been activated
 add_action( 'deactivated_plugin', 'cache_purge_helper', 10, 0); // After a plugin has been deactivated
