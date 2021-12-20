@@ -77,6 +77,7 @@ add_action( 'switch_theme', 'cache_purge_helper', 10, 0); // After a theme has b
 
 // Beaver Builder
 if ( defined( 'FL_BUILDER_VERSION' ) ) {
+    write_log('cph - Beaver Builder Hooks enabled');
     add_action( 'fl_builder_cache_cleared', 'cache_purge_helper', 10, 3 );
     add_action( 'fl_builder_after_save_layout', 'cache_purge_helper', 10, 3 );
     add_action( 'fl_builder_after_save_user_template', 'cache_purge_helper', 10, 3 );
@@ -85,6 +86,7 @@ if ( defined( 'FL_BUILDER_VERSION' ) ) {
 
 // Elementor
 if ( defined( 'ELEMENTOR_VERSION' ) ) {
+    write_log('cph - Elementor hooks enabled');
     add_action( 'elementor/core/files/clear_cache', 'cache_purge_helper', 10, 3 ); 
     add_action( 'update_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
     add_action( 'delete_option__elementor_global_css', 'cache_purge_helper', 10, 3 );
@@ -92,11 +94,13 @@ if ( defined( 'ELEMENTOR_VERSION' ) ) {
 
 // AutoOptimizer
 if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
+    write_log('cph - Autoptimize hooks enabled');
     add_action( 'autoptimize_action_cachepurged','cache_purge_helper', 10, 3 ); // Need to document this.
 }
 
 // Oxygen
 if ( defined( 'CT_VERSION' ) ) {
+    write_log('cph - Oxygen hooks enabled');
     add_action( 'wp_ajax_oxygen_vsb_cache_generated','cache_purge_helper', 99 );
     add_action( 'update_option__oxygen_vsb_universal_css_url','cache_purge_helper', 99 );
     add_action( 'update_option__oxygen_vsb_css_files_state','cache_purge_helper', 99 );
