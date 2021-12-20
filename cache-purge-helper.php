@@ -4,7 +4,7 @@
  * Plugin Name:       Cache Purge Helper
  * Plugin URI:        https://wpinfo.net
  * Description:       Adding additional hooks to trigger nginx-helper or lscache plugin purges
- * Version:           0.1e
+ * Version:           0.1.1-beta
  * Author:            Paul Stoute, Jordan Trask, Jeff Cleverley
  * Author URI:        https://wpinfo.net
  * Text Domain:       cache-purge-helper
@@ -60,7 +60,7 @@ function cache_purge_helper() {
 if ( ! function_exists('write_log')) {
   function write_log ( $log )  {
     if ( is_array( $log ) || is_object( $log ) ) {
-      if ( WP_DEBUG === true ) {
+      if ( WP_DEBUG === true && defined ('CPH_DEBUG') ) {
         error_log( print_r( $log, true ) );
       }
     } else {
