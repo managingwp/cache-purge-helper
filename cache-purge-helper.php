@@ -30,9 +30,9 @@
 function cphp_purge() {
     // Purge WordPress Cache
     $called_action_hook = current_filter();
-    cphp_write_log('cphp- initiated');
-    cphp_write_log('cphp- running on'. $called_action_hook );
-    cphp_write_log('cphp- flusing WordPress Cache first');
+    cphp_write_log('cphp - initiated');
+    cphp_write_log('cphp - running on'. $called_action_hook );
+    cphp_write_log('cphp - flusing WordPress Cache first');
     wp_cache_flush();
   
     // If nginx-helper plugins is enabled, purge cache.
