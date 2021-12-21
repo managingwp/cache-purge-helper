@@ -9,7 +9,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A helper plugin to purge cache via the LSCache and Nginx Helper plugins for popular WordPress plugin and themes.
+A helper plugin to purge cache via the LSCache and Nginx Helper plugins for popular WordPress plugins and themes.
 
 ## Description
 
