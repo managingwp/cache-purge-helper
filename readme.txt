@@ -61,7 +61,7 @@ Manual Installation
 
 Enabling Debug Mode
 
-Simply add `define('CPH_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log
+Simply add `define('CPHP_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log
 
 ## Frequently Asked Questions
 
@@ -77,5 +77,8 @@ None
 
 ## Changelog
 
+### 0.1.2
+* Release to be sent to WordPress Plugin Directory
+
 ### 0.1.1
-* Added to WordPress Plugin Directory
+* Preparing to be added to the WordPress Plugin Directory
