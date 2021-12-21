@@ -4,7 +4,7 @@
  * Plugin Name:       Cache Purge Helper
  * Plugin URI:        https://wpinfo.net
  * Description:       Adding additional hooks to trigger nginx-helper or lscache plugin purges
- * Version:           0.1.1
+ * Version:           0.1.3
  * Author:            Paul Stoute, Jordan Trask, Jeff Cleverley
  * Author URI:        https://github.com/jordantrizz/cache-purge-helper
  * Text Domain:       cache-purge-helper
@@ -30,9 +30,9 @@
 function cphp_purge() {
     // Purge WordPress Cache
     $called_action_hook = current_filter();
-    cphp_write_log('cphp- initiated');
-    cphp_write_log('cphp- running on'. $called_action_hook );
-    cphp_write_log('cphp- flusing WordPress Cache first');
+    cphp_write_log('cphp - initiated');
+    cphp_write_log('cphp - running on'. $called_action_hook );
+    cphp_write_log('cphp - flusing WordPress Cache first');
     wp_cache_flush();
   
     // If nginx-helper plugins is enabled, purge cache.

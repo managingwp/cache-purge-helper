@@ -4,12 +4,12 @@ Donate link: https://wpinfo.net/sponsor
 Tags: cache,purge,litespeed,nginx
 Requires at least: 5.8
 Tested up to: 5.8
-Stable tag: 0.1.1
+Stable tag: 0.1.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A helper plugin to purge cache via the LSCache and Nginx Helper plugins for popular WordPress plugin and themes.
+A helper plugin to purge cache via the LSCache and Nginx Helper plugins for popular WordPress plugins and themes.
 
 ## Description
 
@@ -45,6 +45,24 @@ The following themes and plugins hooks are used.
 * update_option__oxygen_vsb_universal_css_url
 * update_option__oxygen_vsb_css_files_state
 
+## Installation
+
+Automatic Installation
+
+1. Log in to your WordPress admin panel, navigate to the Plugins menu and click Add New.
+2. In the search field type "Cache Purge Helper" and click Search Plugins. 
+3. From the search results, pick "Cache Purge Helper" and click Install Now. Wordpress will ask you to confirm to complete the installation.
+
+Manual Installation
+
+1. Extract the zip file.
+2. Upload them to `/wp-content/plugins/` directory on your WordPress installation.
+3. Then activate the Plugin from Plugins page.
+
+Enabling Debug Mode
+
+Simply add `define('CPHP_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log
+
 ## Frequently Asked Questions
 
 ### Why did you create this plugin?
@@ -59,5 +77,11 @@ None
 
 ## Changelog
 
+### 0.1.3
+* Github actions to automate pushing to SVN
+
+### 0.1.2
+* Release to be sent to WordPress Plugin Directory
+
 ### 0.1.1
-* Added to WordPress Plugin Directory
+* Preparing to be added to the WordPress Plugin Directory
