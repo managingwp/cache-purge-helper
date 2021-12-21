@@ -4,7 +4,7 @@ Donate link: https://wpinfo.net/sponsor
 Tags: cache,purge,litespeed,nginx
 Requires at least: 5.8
 Tested up to: 5.8
-Stable tag: 0.1.1
+Stable tag: 0.1.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,6 +76,9 @@ None. Submit a issue on Github https://github.com/jordantrizz/cache-purge-helper
 None
 
 ## Changelog
+
+### 0.1.3
+* Github actions to automate pushing to SVN
 
 ### 0.1.2
 * Release to be sent to WordPress Plugin Directory
