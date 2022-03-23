@@ -4,7 +4,7 @@
  * Plugin Name:       Cache Purge Helper
  * Plugin URI:        https://wpinfo.net
  * Description:       Adding additional hooks to trigger nginx-helper or lscache plugin purges
- * Version:           0.1.3
+ * Version:           0.1.4
  * Author:            Paul Stoute, Jordan Trask, Jeff Cleverley
  * Author URI:        https://github.com/jordantrizz/cache-purge-helper
  * Text Domain:       cache-purge-helper
@@ -115,6 +115,12 @@ if ( defined( 'CT_VERSION' ) ) {
     add_action( 'wp_ajax_oxygen_vsb_cache_generated','cphp_purge', 99 );
     add_action( 'update_option__oxygen_vsb_universal_css_url','cphp_purge', 99 );
     add_action( 'update_option__oxygen_vsb_css_files_state','cphp_purge', 99 );
+}
+
+// 
+if ( defined 'WPO_VERSION' ) ){
+    cphp_write_log('cphp - WP Optimiez hooks enabled');
+    add_filter('wpo_purge_all_cache_on_update', '__return_true');
 }
 
 // EOF       
