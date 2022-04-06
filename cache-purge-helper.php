@@ -127,15 +127,21 @@ function cphp_write_log ( $log )  {
     }
 }
 
-/*************/
+/**************************************************/
 
-// Plugin Update Hooks
+/**
+ * WordPress core hooks.
+ */
+
 cphp_write_log('cphp - Loading WordPress core hooks');
-
-add_action( 'upgrader_process_complete', 'cphp_purge', 10, 0 ); // After plugins have been updated
+add_action( 'upgrader_process_complete', 'cphp_purge', 10, 0 ); // After a plugin, theme or core has been updated.
 add_action( 'activated_plugin', 'cphp_purge', 10, 0); // After a plugin has been activated
 add_action( 'deactivated_plugin', 'cphp_purge', 10, 0); // After a plugin has been deactivated
 add_action( 'switch_theme', 'cphp_purge', 10, 0); // After a theme has been changed
+
+/**
+ * Page builder hooks.
+ */
 
 // Beaver Builder
 if ( defined( 'FL_BUILDER_VERSION' ) ) {
@@ -154,12 +160,6 @@ if ( defined( 'ELEMENTOR_VERSION' ) ) {
     add_action( 'delete_option__elementor_global_css', 'cphp_purge', 10, 3 );
 }
 
-// AutoOptimizer
-if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
-    cphp_write_log('cphp - Autoptimize hooks enabled');
-    add_action( 'autoptimize_action_cachepurged','cphp_purge', 10, 3 ); // Need to document this.
-}
-
 // Oxygen
 if ( defined( 'CT_VERSION' ) ) {
     cphp_write_log('cphp - Oxygen hooks enabled');
@@ -168,10 +168,19 @@ if ( defined( 'CT_VERSION' ) ) {
     add_action( 'update_option__oxygen_vsb_css_files_state','cphp_purge', 99 );
 }
 
+/**
+ * Optimization and caching plugin hooks.
+ */
+
+// AutoOptimizer
+if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
+    cphp_write_log('cphp - Autoptimize hooks enabled');
+    add_action( 'autoptimize_action_cachepurged','cphp_purge', 10, 3 ); // Need to document this.
+}
+
 // WP Optimize Hooks
 if ( defined 'WPO_VERSION' ) ){
     cphp_write_log('cphp - WP Optimize hooks enabled');
     add_filter('wpo_purge_all_cache_on_update', '__return_true');
 }
-
-// EOF       
+      
