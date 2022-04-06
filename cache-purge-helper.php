@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Cache Purge Helper
- * Plugin URI:        https://wpinfo.net
+ * Plugin URI:        https://managingwp.io
  * Description:       Adding additional hooks to trigger nginx-helper or lscache plugin purges
  * Version:           0.1.4
  * Author:            Paul Stoute, Jordan Trask, Jeff Cleverley
@@ -60,7 +60,58 @@ function cphp_purge() {
     cphp_write_log('cphp - end of cache_purge_helper function');
 }
 
-/** Log to WordPress Debug Log Function
+/**
+ * 
+ * The rtCamp/nginx-helper plugin doesn't work with GridPane's FastCGI Cache.
+ * This is suppose to help, but you should install https://github.com/JeffCleverley/NginxFastCGICachePurger
+ * 
+ */
+
+function cphp_gridpane_purgeall() {
+
+    $site = get_site_url();
+    $find = [ 'http://', 'https://' ];
+    $replace = '';
+    $host = str_replace( $find, $replace, $site);
+
+    if ( is_ssl() ) {
+        
+        $purgeurl = $site . '/purgeall' ;
+        $curl = curl_init( $purgeurl );
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE" );
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_RESOLVE, array( $host . ":443:127.0.0.1" ));
+        
+        $response = curl_exec($curl);
+
+        if ($response === false) {
+
+            $response = curl_errno($curl) .': '. curl_error($curl);
+
+        }
+        
+        curl_close($curl);
+
+    } else {
+
+        $curl = curl_init( "http://127.0.0.1/purgeall" );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:' . $host ));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE" );
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        
+    }
+    
+    cphp_write_log("cph_gridpane_purge: response: $response")
+    exit;
+}
+
+/** 
+ * Log to WordPress Debug Log Function
  *
  * Log to PHP error_log if WP_DEBUG and CPH_DEBUG are set!
  *
@@ -117,9 +168,9 @@ if ( defined( 'CT_VERSION' ) ) {
     add_action( 'update_option__oxygen_vsb_css_files_state','cphp_purge', 99 );
 }
 
-// 
+// WP Optimize Hooks
 if ( defined 'WPO_VERSION' ) ){
-    cphp_write_log('cphp - WP Optimiez hooks enabled');
+    cphp_write_log('cphp - WP Optimize hooks enabled');
     add_filter('wpo_purge_all_cache_on_update', '__return_true');
 }
 
