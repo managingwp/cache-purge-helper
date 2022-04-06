@@ -149,7 +149,6 @@ if ( defined( 'FL_BUILDER_VERSION' ) ) {
     add_action( 'fl_builder_cache_cleared', 'cphp_purge', 10, 3 );
     add_action( 'fl_builder_after_save_layout', 'cphp_purge', 10, 3 );
     add_action( 'fl_builder_after_save_user_template', 'cphp_purge', 10, 3 );
-    add_action( 'upgrader_process_complete', 'cphp_purge', 10, 3 );
 }
 
 // Elementor
@@ -172,7 +171,7 @@ if ( defined( 'CT_VERSION' ) ) {
  * Optimization and caching plugin hooks.
  */
 
-// AutoOptimizer
+// Autoptimizer
 if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
     cphp_write_log('cphp - Autoptimize hooks enabled');
     add_action( 'autoptimize_action_cachepurged','cphp_purge', 10, 3 ); // Need to document this.
