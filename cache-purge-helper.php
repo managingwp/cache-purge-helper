@@ -106,8 +106,7 @@ function cphp_gridpane_purgeall() {
         
     }
     
-    cphp_write_log("cph_gridpane_purge: response: $response")
-    exit;
+    cphp_write_log("cph_gridpane_purge: response: $response");
 }
 
 /** 
@@ -178,7 +177,7 @@ if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
 }
 
 // WP Optimize Hooks
-if ( defined 'WPO_VERSION' ) ){
+if ( defined ('WPO_VERSION') ){
     cphp_write_log('cphp - WP Optimize hooks enabled');
     add_filter('wpo_purge_all_cache_on_update', '__return_true');
 }
