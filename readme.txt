@@ -61,7 +61,9 @@ Manual Installation
 
 Enabling Debug Mode
 
-Simply add `define('CPHP_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log
+Enable [WordPress debug](https://wordpress.org/support/article/debugging-in-wordpress/) and add `define('CPHP_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log.
+
+For any issues, open up a Github issue at https://github.com/managingwp/cache-purge-helper
 
 ## Frequently Asked Questions
 
