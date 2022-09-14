@@ -3,11 +3,16 @@ Additional instances where nginx-helper and lscache plugin should be purged.
 
 # Install
 ## WordPress Plugin Directory
-I've published this to the WordPress Plugin Directory https://github.com/jordantrizz/cache-purge-helper
+I've published this to the WordPress Plugin Directory https://wordpress.org/plugins/cache-purge-helper/
 ## Manual Install
+=======
+>>>>>>> dev
 1. Extract the zip file.
 2. Upload them to `/wp-content/plugins/` directory on your WordPress installation.
 3. Then activate the Plugin from Plugins page.
+
+# Documentation
+* https://managingwp.io/
 
 # Contributions
 * Paul Stoute - https://stoutewebsolutions.com/
@@ -16,8 +21,8 @@ I've published this to the WordPress Plugin Directory https://github.com/jordant
 
 # Support/Sponsor
 * Facebook Page - https://www.facebook.com/groups/managingwordpress
-* Sponsor - https://wpinfo.net/sponsor/
-* WP Info - https://wpinfo.net
+* Sponsor - https://managingwp.io/sponsor/
+* WP Info - https://managingwp.io/
 * WP Guide - https://wpguide.io
 
 # Improvements

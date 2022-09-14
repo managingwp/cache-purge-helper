@@ -4,7 +4,7 @@ Donate link: https://wpinfo.net/sponsor
 Tags: cache,purge,litespeed,nginx
 Requires at least: 5.8
 Tested up to: 5.8
-Stable tag: 0.1.3
+Stable tag: 0.1.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -61,7 +61,9 @@ Manual Installation
 
 Enabling Debug Mode
 
-Simply add `define('CPHP_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log
+Enable [WordPress debug](https://wordpress.org/support/article/debugging-in-wordpress/) and add `define('CPHP_DEBUG',true);` to your wp-config.php to see debug messages in your PHP error_log.
+
+For any issues, open up a Github issue at https://github.com/managingwp/cache-purge-helper
 
 ## Frequently Asked Questions
 

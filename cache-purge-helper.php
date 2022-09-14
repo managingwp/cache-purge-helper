@@ -2,9 +2,9 @@
 
 /**
  * Plugin Name:       Cache Purge Helper
- * Plugin URI:        https://wpinfo.net
+ * Plugin URI:        https://managingwp.io
  * Description:       Adding additional hooks to trigger nginx-helper or lscache plugin purges
- * Version:           0.1.3
+ * Version:           0.1.4
  * Author:            Paul Stoute, Jordan Trask, Jeff Cleverley
  * Author URI:        https://github.com/jordantrizz/cache-purge-helper
  * Text Domain:       cache-purge-helper
@@ -60,7 +60,57 @@ function cphp_purge() {
     cphp_write_log('cphp - end of cache_purge_helper function');
 }
 
-/** Log to WordPress Debug Log Function
+/**
+ * 
+ * The rtCamp/nginx-helper plugin doesn't work with GridPane's FastCGI Cache.
+ * This is suppose to help, but you should install https://github.com/JeffCleverley/NginxFastCGICachePurger
+ * 
+ */
+
+function cphp_gridpane_purgeall() {
+
+    $site = get_site_url();
+    $find = [ 'http://', 'https://' ];
+    $replace = '';
+    $host = str_replace( $find, $replace, $site);
+
+    if ( is_ssl() ) {
+        
+        $purgeurl = $site . '/purgeall' ;
+        $curl = curl_init( $purgeurl );
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE" );
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_RESOLVE, array( $host . ":443:127.0.0.1" ));
+        
+        $response = curl_exec($curl);
+
+        if ($response === false) {
+
+            $response = curl_errno($curl) .': '. curl_error($curl);
+
+        }
+        
+        curl_close($curl);
+
+    } else {
+
+        $curl = curl_init( "http://127.0.0.1/purgeall" );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:' . $host ));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE" );
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        
+    }
+    
+    cphp_write_log("cph_gridpane_purge: response: $response");
+}
+
+/** 
+ * Log to WordPress Debug Log Function
  *
  * Log to PHP error_log if WP_DEBUG and CPH_DEBUG are set!
  *
@@ -76,15 +126,21 @@ function cphp_write_log ( $log )  {
     }
 }
 
-/*************/
+/**************************************************/
 
-// Plugin Update Hooks
+/**
+ * WordPress core hooks.
+ */
+
 cphp_write_log('cphp - Loading WordPress core hooks');
-
-add_action( 'upgrader_process_complete', 'cphp_purge', 10, 0 ); // After plugins have been updated
+add_action( 'upgrader_process_complete', 'cphp_purge', 10, 0 ); // After a plugin, theme or core has been updated.
 add_action( 'activated_plugin', 'cphp_purge', 10, 0); // After a plugin has been activated
 add_action( 'deactivated_plugin', 'cphp_purge', 10, 0); // After a plugin has been deactivated
 add_action( 'switch_theme', 'cphp_purge', 10, 0); // After a theme has been changed
+
+/**
+ * Page builder hooks.
+ */
 
 // Beaver Builder
 if ( defined( 'FL_BUILDER_VERSION' ) ) {
@@ -92,7 +148,6 @@ if ( defined( 'FL_BUILDER_VERSION' ) ) {
     add_action( 'fl_builder_cache_cleared', 'cphp_purge', 10, 3 );
     add_action( 'fl_builder_after_save_layout', 'cphp_purge', 10, 3 );
     add_action( 'fl_builder_after_save_user_template', 'cphp_purge', 10, 3 );
-    add_action( 'upgrader_process_complete', 'cphp_purge', 10, 3 );
 }
 
 // Elementor
@@ -103,12 +158,6 @@ if ( defined( 'ELEMENTOR_VERSION' ) ) {
     add_action( 'delete_option__elementor_global_css', 'cphp_purge', 10, 3 );
 }
 
-// AutoOptimizer
-if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
-    cphp_write_log('cphp - Autoptimize hooks enabled');
-    add_action( 'autoptimize_action_cachepurged','cphp_purge', 10, 3 ); // Need to document this.
-}
-
 // Oxygen
 if ( defined( 'CT_VERSION' ) ) {
     cphp_write_log('cphp - Oxygen hooks enabled');
@@ -117,4 +166,19 @@ if ( defined( 'CT_VERSION' ) ) {
     add_action( 'update_option__oxygen_vsb_css_files_state','cphp_purge', 99 );
 }
 
-// EOF       
+/**
+ * Optimization and caching plugin hooks.
+ */
+
+// Autoptimizer
+if ( defined( 'AUTOPTIMIZE_PLUGIN_DIR' ) ) {
+    cphp_write_log('cphp - Autoptimize hooks enabled');
+    add_action( 'autoptimize_action_cachepurged','cphp_purge', 10, 3 ); // Need to document this.
+}
+
+// WP Optimize Hooks
+if ( defined ('WPO_VERSION') ){
+    cphp_write_log('cphp - WP Optimize hooks enabled');
+    add_filter('wpo_purge_all_cache_on_update', '__return_true');
+}
+      
